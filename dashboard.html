@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Dashboard</h1>
+    <div id="welcome-message" class="text-center"></div>
+    <div id="token-display" class="text-center mt-3"></div>
+    <div class="text-center mt-3">
+        <button id="logout" class="btn btn-danger">Logout</button>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const welcomeMessage = document.getElementById('welcome-message');
+        welcomeMessage.textContent = `Welcome, User ${payload.userId}!`;
+
+        // Display the token
+        const tokenDisplay = document.getElementById('token-display');
+        tokenDisplay.textContent = `Your session token: ${token}`;
+
+        document.getElementById('logout').addEventListener('click', function () {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        });
+    });
+</script>
+</body>
+</html>
