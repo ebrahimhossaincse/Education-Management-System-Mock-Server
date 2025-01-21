@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructors</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Instructors</h1>
+    <div id="instructor-list" class="row"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="auth.js"></script>
+<script>
+    $(document).ready(function() {
+        $.getJSON('http://localhost:3000/instructors', function(data) {
+            let instructorHtml = '';
+            $.each(data, function(key, instructor) {
+                instructorHtml += `
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${instructor.name}</h5>
+                                    <p class="card-text">Email: ${instructor.email}</p>
+                                    <p class="card-text">Phone: ${instructor.phone}</p>
+                                    <p class="card-text">Address: ${instructor.address}</p>
+                                    <p class="card-text">Department: ${instructor.department}</p>
+                                    <p class="card-text">Qualification: ${instructor.qualification}</p>
+                                    <p class="card-text">Experience: ${instructor.experience}</p>
+                                    <p class="card-text">Status: ${instructor.status}</p>
+                                    <p class="card-text">Course: ${instructor.course}</p>
+                                </div>
+                            </div>
+                        </div>`;
+            });
+            $('#instructor-list').html(instructorHtml);
+        });
+    });
+</script>
+</body>
+</html>

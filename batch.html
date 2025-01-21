@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batches</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Batches</h1>
+    <div id="batch-list" class="row"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="auth.js"></script>
+<script>
+    $(document).ready(function() {
+        $.getJSON('http://localhost:3000/batches', function(data) {
+            let batchHtml = '';
+            $.each(data, function(key, batch) {
+                batchHtml += `
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${batch.name}</h5>
+                                    <p class="card-text">Course: ${batch.course}</p>
+                                    <p class="card-text">Instructor: ${batch.instructor}</p>
+                                    <p class="card-text">Start Date: ${batch.start_date}</p>
+                                    <p class="card-text">End Date: ${batch.end_date}</p>
+                                    <p class="card-text">Schedule: ${batch.schedule}</p>
+                                    <p class="card-text">Students: ${batch.students}</p>
+                                    <p class="card-text">Status: ${batch.status}</p>
+                                    <p class="card-text">Room: ${batch.room}</p>
+                                </div>
+                            </div>
+                        </div>`;
+            });
+            $('#batch-list').html(batchHtml);
+        });
+    });
+</script>
+</body>
+</html>

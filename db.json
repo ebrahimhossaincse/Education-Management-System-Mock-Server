@@ -2,5 +2,23 @@
   "users": [
     { "id": 1, "username": "admin", "password": "admin" },
     { "id": 2, "username": "user2", "password": "password2" }
+  ],
+  "students": [
+    { "id": 1, "name": "Student 1", "age": 20, "email": "student1@example.com", "phone": "1234567890", "address": "Address 1", "course": "Course 1", "batch": "Batch 1", "grade": "A", "status": "Active" },
+    { "id": 2, "name": "Student 2", "age": 21, "email": "student2@example.com", "phone": "1234567891", "address": "Address 2", "course": "Course 2", "batch": "Batch 2", "grade": "B", "status": "Active" }
+
+  ],
+  "courses": [
+    { "id": 1, "name": "Course 1", "description": "Description 1", "duration": "6 months", "instructor": "Instructor 1", "fee": 1000, "schedule": "Mon-Fri", "start_date": "2025-02-01", "end_date": "2025-07-31", "status": "Ongoing" },
+    { "id": 2, "name": "Course 2", "description": "Description 2", "duration": "3 months", "instructor": "Instructor 2", "fee": 500, "schedule": "Tue-Thu", "start_date": "2025-03-01", "end_date": "2025-05-31", "status": "Upcoming" }
+
+  ],
+  "instructors": [
+    { "id": 1, "name": "Instructor 1", "email": "instructor1@example.com", "phone": "9876543210", "address": "Address 1", "department": "Department 1", "qualification": "PhD", "experience": "10 years", "status": "Active", "course": "Course 1" },
+    { "id": 2, "name": "Instructor 2", "email": "instructor2@example.com", "phone": "9876543211", "address": "Address 2", "department": "Department 2", "qualification": "Masters", "experience": "5 years", "status": "Active", "course": "Course 2" }
+  ],
+  "batches": [
+    { "id": 1, "name": "Batch 1", "course": "Course 1", "instructor": "Instructor 1", "start_date": "2025-02-01", "end_date": "2025-07-31", "schedule": "Mon-Fri", "students": 30, "status": "Ongoing", "room": "Room 1" },
+    { "id": 2, "name": "Batch 2", "course": "Course 2", "instructor": "Instructor 2", "start_date": "2025-03-01", "end_date": "2025-05-31", "schedule": "Tue-Thu", "students": 20, "status": "Upcoming", "room": "Room 2" }
   ]
 }

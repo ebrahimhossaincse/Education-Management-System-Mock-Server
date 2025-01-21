@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Students</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Students</h1>
+    <div id="student-list" class="row"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="auth.js"></script>
+<script>
+    $(document).ready(function() {
+        $.getJSON('http://localhost:3000/students', function(data) {
+            let studentHtml = '';
+            $.each(data, function(key, student) {
+                studentHtml += `
+                        <div class="col-md-4 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">${student.name}</h5>
+                                    <p class="card-text">Age: ${student.age}</p>
+                                    <p class="card-text">Email: ${student.email}</p>
+                                    <p class="card-text">Phone: ${student.phone}</p>
+                                    <p class="card-text">Address: ${student.address}</p>
+                                    <p class="card-text">Course: ${student.course}</p>
+                                    <p class="card-text">Batch: ${student.batch}</p>
+                                    <p class="card-text">Grade: ${student.grade}</p>
+                                    <p class="card-text">Status: ${student.status}</p>
+                                </div>
+                            </div>
+                        </div>`;
+            });
+            $('#student-list').html(studentHtml);
+        });
+    });
+</script>
+</body>
+</html>
