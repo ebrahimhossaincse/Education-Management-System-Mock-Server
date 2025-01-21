@@ -6,12 +6,134 @@
     <title>Courses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .navbar {
+            margin-bottom: 40px;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: auto; /* Push the footer to the bottom */
+        }
+
+        .footer .row div {
+            margin-bottom: 20px;
+        }
+
+        .footer .footer-links {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .footer .footer-links li {
+            display: inline;
+            margin-right: 15px;
+        }
+
+        .footer .footer-links a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer .footer-links a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Student Portal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="dashboard.html">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="instructor.html">Instructor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="student.html">Course</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="batch.html">Batch</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container mt-5">
     <h1 class="text-center">Courses</h1>
     <div id="course-list" class="row"></div>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <p>&copy; 2025 Student Portal. All rights reserved by Md. Ebrahim Hossain.</p>
+            </div>
+            <div class="col-md-6 text-md-right">
+                <ul class="footer-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="auth.js"></script>
@@ -62,5 +184,6 @@
         });
     });
 </script>
+
 </body>
 </html>
