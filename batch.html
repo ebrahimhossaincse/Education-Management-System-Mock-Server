@@ -17,27 +17,48 @@
 <script src="auth.js"></script>
 <script>
     $(document).ready(function() {
-        $.getJSON('http://localhost:3000/batches', function(data) {
-            let batchHtml = '';
-            $.each(data, function(key, batch) {
-                batchHtml += `
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${batch.name}</h5>
-                                    <p class="card-text">Course: ${batch.course}</p>
-                                    <p class="card-text">Instructor: ${batch.instructor}</p>
-                                    <p class="card-text">Start Date: ${batch.start_date}</p>
-                                    <p class="card-text">End Date: ${batch.end_date}</p>
-                                    <p class="card-text">Schedule: ${batch.schedule}</p>
-                                    <p class="card-text">Students: ${batch.students}</p>
-                                    <p class="card-text">Status: ${batch.status}</p>
-                                    <p class="card-text">Room: ${batch.room}</p>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        $.ajax({
+            url: 'http://localhost:3000/batches',
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+                let batchHtml = '';
+                $.each(data, function(key, batch) {
+                    batchHtml += `
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${batch.name}</h5>
+                                        <p class="card-text">Course: ${batch.course}</p>
+                                        <p class="card-text">Instructor: ${batch.instructor}</p>
+                                        <p class="card-text">Start Date: ${batch.start_date}</p>
+                                        <p class="card-text">End Date: ${batch.end_date}</p>
+                                        <p class="card-text">Schedule: ${batch.schedule}</p>
+                                        <p class="card-text">Students: ${batch.students}</p>
+                                        <p class="card-text">Status: ${batch.status}</p>
+                                        <p class="card-text">Room: ${batch.room}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
-            });
-            $('#batch-list').html(batchHtml);
+                            </div>`;
+                });
+                $('#batch-list').html(batchHtml);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                if (jqXHR.status === 401) {
+                    alert('Unauthorized! Please login again.');
+                    localStorage.removeItem('token');
+                    window.location.href = 'index.html';
+                }
+            }
         });
     });
 </script>

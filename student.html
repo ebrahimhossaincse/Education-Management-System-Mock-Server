@@ -6,6 +6,81 @@
     <title>Students</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        h1 {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: #343a40;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .card-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .status-active {
+            color: green;
+            font-weight: bold;
+        }
+
+        .status-inactive {
+            color: red;
+            font-weight: bold;
+        }
+
+        .grade-A {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .grade-B {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .grade-C {
+            color: #fd7e14;
+            font-weight: bold;
+        }
+
+        .grade-D {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .grade-F {
+            color: #6c757d;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 <div class="container mt-5">
@@ -17,27 +92,51 @@
 <script src="auth.js"></script>
 <script>
     $(document).ready(function() {
-        $.getJSON('http://localhost:3000/students', function(data) {
-            let studentHtml = '';
-            $.each(data, function(key, student) {
-                studentHtml += `
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${student.name}</h5>
-                                    <p class="card-text">Age: ${student.age}</p>
-                                    <p class="card-text">Email: ${student.email}</p>
-                                    <p class="card-text">Phone: ${student.phone}</p>
-                                    <p class="card-text">Address: ${student.address}</p>
-                                    <p class="card-text">Course: ${student.course}</p>
-                                    <p class="card-text">Batch: ${student.batch}</p>
-                                    <p class="card-text">Grade: ${student.grade}</p>
-                                    <p class="card-text">Status: ${student.status}</p>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        $.ajax({
+            url: 'http://localhost:3000/students',
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+                let studentHtml = '';
+                $.each(data, function(key, student) {
+                    const statusClass = student.status.toLowerCase() === 'active' ? 'status-active' : 'status-inactive';
+                    const gradeClass = `grade-${student.grade}`;
+
+                    studentHtml += `
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${student.name}</h5>
+                                        <p class="card-text">Age: ${student.age}</p>
+                                        <p class="card-text">Email: ${student.email}</p>
+                                        <p class="card-text">Phone: ${student.phone}</p>
+                                        <p class="card-text">Address: ${student.address}</p>
+                                        <p class="card-text">Course: ${student.course}</p>
+                                        <p class="card-text">Batch: ${student.batch}</p>
+                                        <p class="card-text ${gradeClass}">Grade: ${student.grade}</p>
+                                        <p class="card-text ${statusClass}">Status: ${student.status}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
-            });
-            $('#student-list').html(studentHtml);
+                            </div>`;
+                });
+                $('#student-list').html(studentHtml);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                if (jqXHR.status === 401) {
+                    alert('Unauthorized! Please login again.');
+                    localStorage.removeItem('token');
+                    window.location.href = 'index.html';
+                }
+            }
         });
     });
 </script>

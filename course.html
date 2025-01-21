@@ -17,27 +17,48 @@
 <script src="auth.js"></script>
 <script>
     $(document).ready(function() {
-        $.getJSON('http://localhost:3000/courses', function(data) {
-            let courseHtml = '';
-            $.each(data, function(key, course) {
-                courseHtml += `
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${course.name}</h5>
-                                    <p class="card-text">Description: ${course.description}</p>
-                                    <p class="card-text">Duration: ${course.duration}</p>
-                                    <p class="card-text">Instructor: ${course.instructor}</p>
-                                    <p class="card-text">Fee: ${course.fee}</p>
-                                    <p class="card-text">Schedule: ${course.schedule}</p>
-                                    <p class="card-text">Start Date: ${course.start_date}</p>
-                                    <p class="card-text">End Date: ${course.end_date}</p>
-                                    <p class="card-text">Status: ${course.status}</p>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        $.ajax({
+            url: 'http://localhost:3000/courses',
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+                let courseHtml = '';
+                $.each(data, function(key, course) {
+                    courseHtml += `
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${course.name}</h5>
+                                        <p class="card-text">Description: ${course.description}</p>
+                                        <p class="card-text">Duration: ${course.duration}</p>
+                                        <p class="card-text">Instructor: ${course.instructor}</p>
+                                        <p class="card-text">Fee: ${course.fee}</p>
+                                        <p class="card-text">Schedule: ${course.schedule}</p>
+                                        <p class="card-text">Start Date: ${course.start_date}</p>
+                                        <p class="card-text">End Date: ${course.end_date}</p>
+                                        <p class="card-text">Status: ${course.status}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
-            });
-            $('#course-list').html(courseHtml);
+                            </div>`;
+                });
+                $('#course-list').html(courseHtml);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                if (jqXHR.status === 401) {
+                    alert('Unauthorized! Please login again.');
+                    localStorage.removeItem('token');
+                    window.location.href = 'index.html';
+                }
+            }
         });
     });
 </script>

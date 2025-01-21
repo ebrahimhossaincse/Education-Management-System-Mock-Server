@@ -5,26 +5,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        .dashboard-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .dashboard-container h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .btn {
+            margin: 10px 0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+            margin-top: 20px;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: scale(1.05);
+        }
+        #welcome-message {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="text-center">Dashboard</h1>
-    <div id="welcome-message" class="text-center mb-4"></div>
-    <div class="text-center">
+<div class="dashboard-container">
+    <h1>Dashboard</h1>
+    <div id="welcome-message" class="mb-4">Welcome</div>
+    <div>
         <button id="student" class="btn btn-primary btn-block">Student</button>
         <button id="course" class="btn btn-primary btn-block">Course</button>
         <button id="instructor" class="btn btn-primary btn-block">Instructor</button>
         <button id="batch" class="btn btn-primary btn-block">Batch</button>
     </div>
-    <div id="token-display" class="text-center mt-3"></div>
-    <div class="text-center mt-3">
+    <div>
         <button id="logout" class="btn btn-danger">Logout</button>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="auth.js"></script>
 <script>
     $(document).ready(function () {
         const token = localStorage.getItem('token');
@@ -33,10 +89,6 @@
             return;
         }
 
-        // Display the token
-        // $('#token-display').text(`Your session token: ${token}`);
-
-        // Decode token to extract user information
         const payload = JSON.parse(atob(token.split('.')[1]));
         $('#welcome-message').text(`Welcome, User ${payload.userId}!`);
 

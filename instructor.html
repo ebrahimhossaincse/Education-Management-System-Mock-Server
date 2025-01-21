@@ -17,27 +17,48 @@
 <script src="auth.js"></script>
 <script>
     $(document).ready(function() {
-        $.getJSON('http://localhost:3000/instructors', function(data) {
-            let instructorHtml = '';
-            $.each(data, function(key, instructor) {
-                instructorHtml += `
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">${instructor.name}</h5>
-                                    <p class="card-text">Email: ${instructor.email}</p>
-                                    <p class="card-text">Phone: ${instructor.phone}</p>
-                                    <p class="card-text">Address: ${instructor.address}</p>
-                                    <p class="card-text">Department: ${instructor.department}</p>
-                                    <p class="card-text">Qualification: ${instructor.qualification}</p>
-                                    <p class="card-text">Experience: ${instructor.experience}</p>
-                                    <p class="card-text">Status: ${instructor.status}</p>
-                                    <p class="card-text">Course: ${instructor.course}</p>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        $.ajax({
+            url: 'http://localhost:3000/instructors',
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            success: function(data) {
+                let instructorHtml = '';
+                $.each(data, function(key, instructor) {
+                    instructorHtml += `
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${instructor.name}</h5>
+                                        <p class="card-text">Email: ${instructor.email}</p>
+                                        <p class="card-text">Phone: ${instructor.phone}</p>
+                                        <p class="card-text">Address: ${instructor.address}</p>
+                                        <p class="card-text">Department: ${instructor.department}</p>
+                                        <p class="card-text">Qualification: ${instructor.qualification}</p>
+                                        <p class="card-text">Experience: ${instructor.experience}</p>
+                                        <p class="card-text">Status: ${instructor.status}</p>
+                                        <p class="card-text">Course: ${instructor.course}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>`;
-            });
-            $('#instructor-list').html(instructorHtml);
+                            </div>`;
+                });
+                $('#instructor-list').html(instructorHtml);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                if (jqXHR.status === 401) {
+                    alert('Unauthorized! Please login again.');
+                    localStorage.removeItem('token');
+                    window.location.href = 'index.html';
+                }
+            }
         });
     });
 </script>
