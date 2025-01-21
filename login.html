@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login System</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #59CDE9,#0A2A88);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .login-container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Title Styling */
+    .login-container h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: #444;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .login-container h1::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, #74ebd5, #9face6);
+      margin: 10px auto 0;
+      border-radius: 5px;
+    }
+
+    /* Form Styling */
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-weight: 500;
+      color: #555;
+    }
+
+    .form-control {
+      border: 1px solid #ddd;
+      border-radius: 50px;
+      padding: 10px 20px;
+      transition: all 0.4s ease;
+      background: #f9f9f9;
+    }
+
+    .form-control:focus {
+      border: 2px solid #74ebd5;
+      box-shadow: 0 0 10px rgba(116, 235, 213, 0.5);
+      background: #fff;
+    }
+
+    /* Button Styling */
+    .btn-primary {
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #9face6, #74ebd5);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Error Message */
+    #error-message {
+      font-size: 0.9rem;
+      text-align: center;
+      color: #d9534f;
+      margin-top: 15px;
+      display: none;
+      animation: shake 0.3s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-5px);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+    }
+
+    /* Icons Inside Input */
+    .form-group i {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #aaa;
+      transition: all 0.3s ease;
+    }
+
+    .form-control:focus + i {
+      color: #74ebd5;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px;
+      }
+
+      .login-container h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="login-container">
+  <h1>Login</h1>
+  <form id="login-form">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" id="username" placeholder="Enter your username" required>
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+      <i class="fas fa-lock"></i>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <div id="error-message">Invalid username or password</div>
+  </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $('#login-form').on('submit', function (e) {
+      e.preventDefault();
+      const username = $('#username').val();
+      const password = $('#password').val();
+
+      $.ajax({
+        url: 'http://localhost:3000/login',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ username, password }),
+        success: function (response) {
+          console.log('Session Token:', response.token);
+          localStorage.setItem('token', response.token);
+          window.location.href = 'dashboard.html';
+        },
+        error: function () {
+          $('#error-message').fadeIn(500).delay(2000).fadeOut(500);
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
