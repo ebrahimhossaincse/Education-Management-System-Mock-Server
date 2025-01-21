@@ -90,7 +90,7 @@
         }
 
         const payload = JSON.parse(atob(token.split('.')[1]));
-        $('#welcome-message').text(`Welcome, User ${payload.userId}!`);
+        $('#welcome-message').text(`Welcome, User ${payload.username}!`);
 
         $('#student').on('click', function () {
             window.location.href = 'student.html';
