@@ -173,7 +173,7 @@
       const password = $('#password').val();
 
       $.ajax({
-        url: 'http://localhost:3000/login',
+        url: 'https://education-management-system-mock-server.onrender.com/login',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({ username, password }),
