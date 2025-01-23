@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Redirect to login page if no token is found
     if (!token) {
         alert('No token found. Please login.');
-        window.location.href = 'index.html';
+        window.location.href = 'public/index.html';
         return;
     }
 
@@ -35,24 +35,24 @@ document.addEventListener('DOMContentLoaded', function () {
     // Logout function
     function logout() {
         localStorage.removeItem('token');
-        window.location.href = 'index.html';
+        window.location.href = 'public/index.html';
     }
 
     // Attach event listeners to buttons
     document.getElementById('student').addEventListener('click', function () {
-        window.location.href = 'student.html';
+        window.location.href = 'public/student.html';
     });
 
     document.getElementById('course').addEventListener('click', function () {
-        window.location.href = 'course.html';
+        window.location.href = 'public/course.html';
     });
 
     document.getElementById('instructor').addEventListener('click', function () {
-        window.location.href = 'instructor.html';
+        window.location.href = 'public/instructor.html';
     });
 
     document.getElementById('batch').addEventListener('click', function () {
-        window.location.href = 'batch.html';
+        window.location.href = 'public/batch.html';
     });
 
     document.getElementById('logout').addEventListener('click', logout);
