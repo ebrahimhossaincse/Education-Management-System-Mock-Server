@@ -1,3 +1,8 @@
+// Import jwt-decode library (install it using npm or include it via CDN)
+// npm: npm install jwt-decode
+// CDN: <script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
+import jwtDecode from 'jwt-decode';
+
 document.addEventListener('DOMContentLoaded', function () {
     const token = localStorage.getItem('token');
 
