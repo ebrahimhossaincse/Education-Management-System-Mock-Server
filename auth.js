@@ -40,20 +40,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Attach event listeners to buttons
     document.getElementById('student').addEventListener('click', function () {
+        console.log('Student button clicked');
         window.location.href = 'public/student.html';
     });
 
     document.getElementById('course').addEventListener('click', function () {
+        console.log('Course button clicked');
         window.location.href = 'public/course.html';
     });
 
     document.getElementById('instructor').addEventListener('click', function () {
+        console.log('Instructor button clicked');
         window.location.href = 'public/instructor.html';
     });
 
     document.getElementById('batch').addEventListener('click', function () {
+        console.log('Batch button clicked');
         window.location.href = 'public/batch.html';
     });
 
-    document.getElementById('logout').addEventListener('click', logout);
+    document.getElementById('logout').addEventListener('click', function () {
+        console.log('Logout button clicked');
+        localStorage.removeItem('token');
+        window.location.href = 'public/index.html';
+    });
 });
