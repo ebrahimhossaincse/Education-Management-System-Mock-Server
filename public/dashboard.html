@@ -10,7 +10,7 @@
         /* Global Styles */
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right,#59CDE9,#0A2A88);
+            background: linear-gradient(to right, #59CDE9, #0A2A88);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -145,39 +145,61 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<!-- Include jwt-decode library -->
+<script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
 <script>
-    $(document).ready(function () {
+    document.addEventListener('DOMContentLoaded', function () {
         const token = localStorage.getItem('token');
+
+        // Redirect to login page if no token is found
         if (!token) {
             window.location.href = 'index.html';
             return;
         }
 
-        // Decode the token payload to get user information
-        const payload = JSON.parse(atob(token.split('.')[1]));
-        $('#welcome-message').text(`Welcome, User ${payload.username}!`);
+        // Decode and verify the token
+        try {
+            const payload = jwtDecode(token);
 
-        $('#student').on('click', function () {
+            // Check if the token is expired
+            const currentTime = Math.floor(Date.now() / 1000);
+            if (payload.exp < currentTime) {
+                alert('Session expired. Please login again.');
+                logout();
+            } else {
+                // Display welcome message with username
+                const welcomeMessage = document.getElementById('welcome-message');
+                welcomeMessage.textContent = `Welcome, ${payload.username || 'User'}!`;
+            }
+        } catch (e) {
+            alert('Invalid token. Please login again.');
+            logout();
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = 'index.html';
+        }
+
+        // Attach event listeners to buttons
+        document.getElementById('student').addEventListener('click', function () {
             window.location.href = 'student.html';
         });
 
-        $('#course').on('click', function () {
+        document.getElementById('course').addEventListener('click', function () {
             window.location.href = 'course.html';
         });
 
-        $('#instructor').on('click', function () {
+        document.getElementById('instructor').addEventListener('click', function () {
             window.location.href = 'instructor.html';
         });
 
-        $('#batch').on('click', function () {
+        document.getElementById('batch').addEventListener('click', function () {
             window.location.href = 'batch.html';
         });
 
-        $('#logout').on('click', function () {
-            localStorage.removeItem('token');
-            window.location.href = 'login.html';
-        });
+        document.getElementById('logout').addEventListener('click', logout);
     });
 </script>
 </body>
