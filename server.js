@@ -10,12 +10,6 @@ const middlewares = jsonServer.defaults();
 server.use(express.static(path.join(__dirname, 'public')));
 
 
-// Start the server
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
-
 const SECRET_KEY = 'your_secret_key';
 const expiresIn = '1h';
 
