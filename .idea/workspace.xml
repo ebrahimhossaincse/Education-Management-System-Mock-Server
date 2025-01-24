@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72699318-60d7-4fd9-8bf0-904187d71ed4" name="Changes" comment="" />
+    <list default="true" id="72699318-60d7-4fd9-8bf0-904187d71ed4" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/auth.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -53,11 +56,12 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\mdebr\WebstormProjects\Login_System_Mock_Server" />
       <recent name="C:\Users\mdebr\WebstormProjects\Login_System_Mock_Server\public" />
       <recent name="C:\Users\mdebr\WebstormProjects\Login_System_Mock_Server\node_modules" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.index.html">
+  <component name="RunManager" selected="JavaScript Debug.dashboard.html">
     <configuration name="dashboard.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Login_System_Mock_Server/public/dashboard.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
@@ -72,8 +76,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.dashboard.html" />
+        <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.index.html" />
         <item itemvalue="JavaScript Debug.student.html" />
       </list>
@@ -101,7 +105,8 @@
       <workItem from="1737472372088" duration="4866000" />
       <workItem from="1737516348589" duration="1036000" />
       <workItem from="1737556768211" duration="739000" />
-      <workItem from="1737647351152" duration="8294000" />
+      <workItem from="1737647351152" duration="8733000" />
+      <workItem from="1737692310668" duration="200000" />
     </task>
     <servers />
   </component>

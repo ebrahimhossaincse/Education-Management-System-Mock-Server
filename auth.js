@@ -33,25 +33,20 @@ document.addEventListener('DOMContentLoaded', function () {
         window.location.href = '/index.html'; // Updated path
     }
 
-    // Attach event listeners to buttons
-    document.getElementById('student').addEventListener('click', function () {
-        console.log('Student button clicked');
-        window.location.href = '/student.html'; // Updated path
+    $('#student').on('click', function () {
+        window.location.href = 'student.html';
     });
 
-    document.getElementById('course').addEventListener('click', function () {
-        console.log('Course button clicked');
-        window.location.href = '/course.html'; // Updated path
+    $('#course').on('click', function () {
+        window.location.href = 'course.html';
     });
 
-    document.getElementById('instructor').addEventListener('click', function () {
-        console.log('Instructor button clicked');
-        window.location.href = '/instructor.html'; // Updated path
+    $('#instructor').on('click', function () {
+        window.location.href = 'instructor.html';
     });
 
-    document.getElementById('batch').addEventListener('click', function () {
-        console.log('Batch button clicked');
-        window.location.href = '/batch.html'; // Updated path
+    $('#batch').on('click', function () {
+        window.location.href = 'batch.html';
     });
 
     document.getElementById('logout').addEventListener('click', logout);
