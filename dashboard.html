@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <!-- Bootstrap CSS for styling -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Google Fonts for custom font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         /* Global Styles */
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(to right, #59CDE9, #0A2A88);
+            background: linear-gradient(to right,#59CDE9,#0A2A88);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -147,9 +145,40 @@
     </div>
 </div>
 
-<!-- Include jwt-decode library -->
-<script src="https://unpkg.com/jwt-decode/build/jwt-decode.js"></script>
-<!-- Include auth.js -->
-<script src="auth.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        // Decode the token payload to get user information
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        $('#welcome-message').text(`Welcome, User ${payload.username}!`);
+
+        $('#student').on('click', function () {
+            window.location.href = 'student.html';
+        });
+
+        $('#course').on('click', function () {
+            window.location.href = 'course.html';
+        });
+
+        $('#instructor').on('click', function () {
+            window.location.href = 'instructor.html';
+        });
+
+        $('#batch').on('click', function () {
+            window.location.href = 'batch.html';
+        });
+
+        $('#logout').on('click', function () {
+            localStorage.removeItem('token');
+            window.location.href = 'login.html';
+        });
+    });
+</script>
 </body>
 </html>

@@ -1,14 +1,10 @@
 const jsonServer = require('json-server');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const express = require('express');
+
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, 'db.json'));
 const middlewares = jsonServer.defaults();
-
-// Serve static files from the "public" folder
-server.use(express.static(path.join(__dirname, 'public')));
-
 
 const SECRET_KEY = 'your_secret_key';
 const expiresIn = '1h';

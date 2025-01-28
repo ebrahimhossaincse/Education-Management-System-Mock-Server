@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Students</title>
+    <title>Instructors</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -64,42 +64,6 @@
             margin-bottom: 10px;
         }
 
-        /* Status and Grade Colors */
-        .status-active {
-            color: #28a745;
-            font-weight: bold;
-        }
-
-        .status-inactive {
-            color: #dc3545;
-            font-weight: bold;
-        }
-
-        .grade-A {
-            color: #28a745;
-            font-weight: bold;
-        }
-
-        .grade-B {
-            color: #ffc107;
-            font-weight: bold;
-        }
-
-        .grade-C {
-            color: #fd7e14;
-            font-weight: bold;
-        }
-
-        .grade-D {
-            color: #dc3545;
-            font-weight: bold;
-        }
-
-        .grade-F {
-            color: #6c757d;
-            font-weight: bold;
-        }
-
         /* Navbar Styles */
         .navbar {
             background: linear-gradient(135deg, #007bff, #0056b3);
@@ -155,7 +119,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">Student Portal</a>
+    <a class="navbar-brand" href="#">Instructor Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -165,7 +129,7 @@
                 <a class="nav-link" href="dashboard.html">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="instructor.html">Instructor</a>
+                <a class="nav-link" href="student.html">Student</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="course.html">Course</a>
@@ -174,15 +138,15 @@
                 <a class="nav-link" href="batch.html">Batch</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">Logout</a>
+                <a class="nav-link" href="login.html">Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Students</h1>
-    <div id="student-list" class="row"></div>
+    <h1>Instructors</h1>
+    <div id="instructor-list" class="row"></div>
 </div>
 
 <footer class="footer">
@@ -204,39 +168,37 @@
             return;
         }
 
-        // Fetch students
+        // Fetch instructors
         $.ajax({
-            url: 'https://education-management-system-mock-server.onrender.com/students',
+            url: 'http://localhost:3000/instructors',
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
             success: function (data) {
-                let studentHtml = '';
-                data.forEach(student => {
-                    const statusClass = student.status.toLowerCase() === 'active' ? 'status-active' : 'status-inactive';
-                    const gradeClass = `grade-${student.grade}`;
-                    studentHtml += `
+                let instructorHtml = '';
+                data.forEach(instructor => {
+                    instructorHtml += `
                         <div class="col-md-6 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">${student.name}</h5>
-                                    <p class="card-text">Age: ${student.age}</p>
-                                    <p class="card-text">Email: ${student.email}</p>
-                                    <p class="card-text">Phone: ${student.phone}</p>
-                                    <p class="card-text">Address: ${student.address}</p>
-                                    <p class="card-text">Course: ${student.course}</p>
-                                    <p class="card-text">Batch: ${student.batch}</p>
-                                    <p class="card-text ${gradeClass}">Grade: ${student.grade}</p>
-                                    <p class="card-text ${statusClass}">Status: ${student.status}</p>
+                                    <h5 class="card-title">${instructor.name}</h5>
+                                    <p class="card-text">Email: ${instructor.email}</p>
+                                    <p class="card-text">Phone: ${instructor.phone}</p>
+                                    <p class="card-text">Address: ${instructor.address}</p>
+                                    <p class="card-text">Department: ${instructor.department}</p>
+                                    <p class="card-text">Qualification: ${instructor.qualification}</p>
+                                    <p class="card-text">Experience: ${instructor.experience}</p>
+                                    <p class="card-text">Status: ${instructor.status}</p>
+                                    <p class="card-text">Course: ${instructor.course}</p>
                                 </div>
                             </div>
                         </div>`;
                 });
-                $('#student-list').html(studentHtml);
+                $('#instructor-list').html(instructorHtml);
             },
             error: function () {
-                alert('Failed to load students.');
+                alert('Failed to load instructors.');
             }
         });
     });

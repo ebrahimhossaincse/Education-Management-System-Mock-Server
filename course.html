@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Batches</title>
+    <title>Courses</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -119,7 +119,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="#">Batch Portal</a>
+    <a class="navbar-brand" href="#">Course Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -135,18 +135,18 @@
                 <a class="nav-link" href="student.html">Student</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="course.html">Course</a>
+                <a class="nav-link" href="batch.html">Batch</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="index.html">Logout</a>
+                <a class="nav-link" href="login.html">Logout</a>
             </li>
         </ul>
     </div>
 </nav>
 
 <div class="container">
-    <h1>Batches</h1>
-    <div id="batch-list" class="row"></div>
+    <h1>Courses</h1>
+    <div id="course-list" class="row"></div>
 </div>
 
 <footer class="footer">
@@ -168,37 +168,37 @@
             return;
         }
 
-        // Fetch batches
+        // Fetch courses
         $.ajax({
-            url: 'https://education-management-system-mock-server.onrender.com/batches',
+            url: 'http://localhost:3000/courses',
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`
             },
             success: function (data) {
-                let batchHtml = '';
-                data.forEach(batch => {
-                    batchHtml += `
-                        <div class="col-md-4 mb-4">
+                let courseHtml = '';
+                data.forEach(course => {
+                    courseHtml += `
+                        <div class="col-md-6 mb-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <h5 class="card-title">${batch.name}</h5>
-                                    <p class="card-text">Course: ${batch.course}</p>
-                                    <p class="card-text">Instructor: ${batch.instructor}</p>
-                                    <p class="card-text">Start Date: ${batch.start_date}</p>
-                                    <p class="card-text">End Date: ${batch.end_date}</p>
-                                    <p class="card-text">Schedule: ${batch.schedule}</p>
-                                    <p class="card-text">Students: ${batch.students}</p>
-                                    <p class="card-text">Status: ${batch.status}</p>
-                                    <p class="card-text">Room: ${batch.room}</p>
+                                    <h5 class="card-title">${course.name}</h5>
+                                    <p class="card-text">Description: ${course.description}</p>
+                                    <p class="card-text">Duration: ${course.duration}</p>
+                                    <p class="card-text">Instructor: ${course.instructor}</p>
+                                    <p class="card-text">Fee: ${course.fee}</p>
+                                    <p class="card-text">Schedule: ${course.schedule}</p>
+                                    <p class="card-text">Start Date: ${course.start_date}</p>
+                                    <p class="card-text">End Date: ${course.end_date}</p>
+                                    <p class="card-text">Status: ${course.status}</p>
                                 </div>
                             </div>
                         </div>`;
                 });
-                $('#batch-list').html(batchHtml);
+                $('#course-list').html(courseHtml);
             },
             error: function () {
-                alert('Failed to load batches.');
+                alert('Failed to load courses.');
             }
         });
     });
