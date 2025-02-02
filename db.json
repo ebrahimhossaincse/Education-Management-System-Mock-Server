@@ -47,6 +47,18 @@
       "grade": "A",
       "status": "Deactivate",
       "id": 3
+    },
+    {
+      "name": "Student-3",
+      "age": 21,
+      "email": "student3@example.com",
+      "phone": "1254125115",
+      "address": "Address 2",
+      "course": "Course 2",
+      "batch": "Batch 1",
+      "grade": "A",
+      "status": "Deactivate",
+      "id": 4
     }
   ],
   "courses": [
