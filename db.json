@@ -9,6 +9,11 @@
       "id": 2,
       "username": "user2",
       "password": "password2"
+    },
+    {
+      "username": "ebrahim",
+      "password": "admin",
+      "id": 3
     }
   ],
   "students": [
